@@ -401,10 +401,3 @@ textarea.input { resize: vertical; }
 .account-dropdown button:hover {
   background: #f2f3f5;
 }
-
-/* SEPARADOR OPCIONAL (se quiseres usar <hr>) */
-.account-dropdown hr {
-  margin: 6px 0;
-  border: none;
-  border-top: 1px solid #eee;
-}
