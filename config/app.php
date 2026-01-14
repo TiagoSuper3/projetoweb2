@@ -1,19 +1,29 @@
 <?php
-/**
- * BASE_URL deve apontar para a raiz da aplicação
- * Ex:
- *  - localhost/projetoweb2 → /projetoweb2
- *  - meusite.com           → ''
- */
+// Detectar ambiente
+$isLocal = in_array($_SERVER['HTTP_HOST'], [
+  'localhost',
+  '127.0.0.1'
+]);
 
-$scriptName = $_SERVER['SCRIPT_NAME']; // ex: /projetoweb2/admin/produto/index.php
-$scriptDir  = dirname($scriptName);    // ex: /projetoweb2/admin/produto
+if ($isLocal) {
+  /* =========================
+     LOCALHOST
+  ========================= */
+  define('BASE_URL', '/projetoweb2');
 
-// se estiver em localhost com subpasta, define manualmente a raiz do projeto
-$baseUrl = '';
+  define('DB_HOST', '127.0.0.1');
+  define('DB_NAME', 'loja_db');
+  define('DB_USER', 'root');
+  define('DB_PASS', '');
 
-if (strpos($scriptName, '/projetoweb2/') === 0) {
-  $baseUrl = '/projetoweb2';
+} else {
+  /* =========================
+     PRODUÇÃO (HOSTINGER)
+  ========================= */
+  define('BASE_URL', '');
+
+  define('DB_HOST', 'localhost');
+  define('DB_NAME', 'u506280443_tiabraDB');
+  define('DB_USER', 'u506280443_tiabradbUser');
+  define('DB_PASS', 'GoVDXry0kH;');
 }
-
-define('BASE_URL', $baseUrl);

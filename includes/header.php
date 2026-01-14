@@ -1,7 +1,10 @@
 <?php
 
 require_once __DIR__ . '/../config/app.php';
+
 if (session_status() === PHP_SESSION_NONE) session_start();
+
+require_once __DIR__ . "/csrf.php";
 
 $cartCount = 0;
 if (!empty($_SESSION['cart'])) {
@@ -46,6 +49,7 @@ if (!empty($_SESSION['cart'])) {
           <?php endif; ?>
 
           <form method="post" action="<?= BASE_URL ?>/logout.php">
+            <?php csrf_field(); ?>
             <button type="submit">Logout</button>
           </form>
         </div>

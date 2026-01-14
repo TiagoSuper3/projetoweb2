@@ -2,6 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) session_start();
 require __DIR__ . "/config/db.php";
 require __DIR__ . "/includes/header.php";
+require_once __DIR__ . "/includes/csrf.php";
 
 $cart = $_SESSION['cart'] ?? [];
 if (!$cart) {
@@ -12,6 +13,9 @@ if (!$cart) {
 
 $error = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+  csrf_validate();
+
   $name = trim($_POST['name'] ?? "");
   $address = trim($_POST['address'] ?? "");
 
@@ -103,6 +107,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php endif; ?>
 
 <form method="post" style="max-width:520px">
+
+  <?php csrf_field(); ?>
+
   <label>Nome</label>
   <input class="input" name="name" value="<?= htmlspecialchars($_POST['name'] ?? '') ?>" />
   <br><br>

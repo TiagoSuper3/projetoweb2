@@ -20,7 +20,16 @@ $orders = $stmt->fetchAll();
 
   <h3>Encomendas</h3>
   <table class="table">
-    <thead><tr><th>#</th><th>Cliente</th><th>Total</th><th>Estado</th><th>Data</th></tr></thead>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Cliente</th>
+        <th>Total</th>
+        <th>Estado</th>
+        <th>Data</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
     <tbody>
       <?php foreach ($orders as $o): ?>
         <tr>
@@ -29,6 +38,11 @@ $orders = $stmt->fetchAll();
           <td><?= number_format((float)$o['total'], 2, ',', '.') ?> €</td>
           <td><?= htmlspecialchars($o['status']) ?></td>
           <td><?= htmlspecialchars($o['created_at']) ?></td>
+          <td>
+            <a class="btn secondary" href="order_edit.php?id=<?= (int)$o['id'] ?>">
+              Editar
+            </a>
+          </td>
         </tr>
       <?php endforeach; ?>
     </tbody>

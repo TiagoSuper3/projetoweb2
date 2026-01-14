@@ -1,6 +1,7 @@
 <?php
 
 require __DIR__ . "/../includes/_auth.php";
+require __DIR__ . "/../includes/csrf.php";
 require __DIR__ . "/../config/db.php";
 require_once __DIR__ . '/../config/app.php';
 
@@ -10,17 +11,20 @@ $userId = $_SESSION['user']['id'];
    UPDATE PERFIL (POST)
 ========================= */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $name = trim($_POST['name'] ?? '');
-  $password = $_POST['password'] ?? '';
 
-  if ($name !== '') {
+    csrf_validate();
+
+    $name = trim($_POST['name'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    if ($name !== '') {
     if ($password !== '') {
-      $hash = password_hash($password, PASSWORD_DEFAULT);
-      $stmt = $pdo->prepare("UPDATE users SET name=?, password=? WHERE id=?");
-      $stmt->execute([$name, $hash, $userId]);
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("UPDATE users SET name=?, password=? WHERE id=?");
+        $stmt->execute([$name, $hash, $userId]);
     } else {
-      $stmt = $pdo->prepare("UPDATE users SET name=? WHERE id=?");
-      $stmt->execute([$name, $userId]);
+        $stmt = $pdo->prepare("UPDATE users SET name=? WHERE id=?");
+        $stmt->execute([$name, $userId]);
     }
 
     /* atualizar sessão */
@@ -29,11 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     /* 🔁 REDIRECT PARA NOVO REQUEST */
     header("Location: " . BASE_URL . "/account/profile.php?updated=1");
     exit;
-  }
+    }
 
-  /* nome vazio */
-  header("Location: " . BASE_URL . "/account/profile.php?error=1");
-  exit;
+    /* nome vazio */
+    header("Location: " . BASE_URL . "/account/profile.php?error=1");
+    exit;
 }
 
 /* =========================
@@ -63,30 +67,32 @@ $user = $stmt->fetch();
 
     <form method="post">
 
-    <label>Nome</label>
-    <input
-        class="input"
-        name="name"
-        value="<?= htmlspecialchars($user['name']) ?>"
-        required
-    >
-    <br><br>
+        <?php csrf_field(); ?>
 
-    <label>Email</label>
-    <input
-        class="input"
-        value="<?= htmlspecialchars($user['email']) ?>"
-        disabled
-    >
-    <br><br>
+        <label>Nome</label>
+        <input
+            class="input"
+            name="name"
+            value="<?= htmlspecialchars($user['name']) ?>"
+            required
+        >
+        <br><br>
 
-    <label>Nova password <small>(opcional)</small></label>
-    <input class="input" type="password" name="password">
-    <br><br>
+        <label>Email</label>
+        <input
+            class="input"
+            value="<?= htmlspecialchars($user['email']) ?>"
+            disabled
+        >
+        <br><br>
 
-    <button type="submit" class="btn">
-        Guardar alterações
-    </button>
+        <label>Nova password <small>(opcional)</small></label>
+        <input class="input" type="password" name="password">
+        <br><br>
+
+        <button type="submit" class="btn">
+            Guardar alterações
+        </button>
 
     </form>
 </div>
