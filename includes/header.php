@@ -31,7 +31,7 @@ if (!empty($_SESSION['cart'])) {
 
     <?php if (empty($_SESSION['user'])): ?>
 
-      <a href="/projetoweb2/login.php">Conta / Login</a>
+      <a href="<?= BASE_URL ?>/login.php">Conta / Login</a>
 
     <?php else: ?>
 
