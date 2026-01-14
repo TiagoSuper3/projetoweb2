@@ -15,12 +15,14 @@ if (!empty($_SESSION['cart'])) {
 </head>
 <body>
 <header class="topbar">
-  <a class="brand" href="index.php">🛒 Loja</a>
-  <nav class="nav">
-    <a href="produtos.php">Produtos</a>
-    <a href="carrinho.php">Carrinho (<?= $cartCount ?>)</a>
-    <a href="admin/login.php">Admin</a>
-  </nav>
+  <div class="container">
+    <a class="brand" href="index.php">🛒 Loja</a>
+    <nav class="nav">
+      <a href="produtos.php">Produtos</a>
+      <a href="carrinho.php">Carrinho (<?= $cartCount ?>)</a>
+      <a href="admin/login.php">Admin</a>
+    </nav>
+  </div>
 </header>
+
 <main class="container">
-</main>
