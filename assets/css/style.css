@@ -1,69 +1,181 @@
-/* RESET + BASE */
+/* =========================
+   RESET / BASE
+========================= */
 * { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
 body {
   margin: 0;
-  font-family: system-ui, Arial, sans-serif;
-  background: #f7f7f7;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #f6f7f9;
   color: #111;
+  line-height: 1.55;
+
+  /* footer sempre no fundo */
+  display: flex;
+  flex-direction: column;
 }
 
-/* HEADER */
+main { flex: 1; }
+
+/* links base */
+a { color: inherit; }
+a:hover { opacity: .9; }
+
+/* headings */
+h1 { font-size: 1.8rem; margin: 8px 0 18px; }
+h3 { margin: 12px 0; }
+
+/* =========================
+   LAYOUT
+========================= */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* dá mais “respiro” no conteúdo sem mexer no header/footer */
+main.container {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* =========================
+   HEADER (fix: flex no container interno)
+========================= */
 .topbar {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.topbar .container {
   display: flex;
-  gap: 16px;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 18px;
-  border-bottom: 1px solid #eee;
-  background: #fff;
+  gap: 16px;
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 
 .brand {
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 800;
   color: #111;
+  white-space: nowrap;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .nav a {
-  margin-left: 12px;
   text-decoration: none;
+  color: #222;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.nav a:hover {
+  background: #f2f3f5;
+}
+
+/* =========================
+   INPUTS / FORMS
+========================= */
+.input, select.input, textarea.input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #dedede;
+  border-radius: 12px;
+  background: #fff;
   color: #111;
+  font-size: 0.95rem;
+  outline: none;
 }
 
-/* LAYOUT */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 18px;
+textarea.input { resize: vertical; }
+
+.input:focus {
+  border-color: #111;
 }
 
-/* FILTROS */
+/* =========================
+   BUTTONS
+========================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #111;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+
+.btn:hover {
+  background: #000;
+  border-color: #000;
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn.secondary {
+  background: #fff;
+  color: #111;
+  border-color: #d9d9d9;
+}
+
+.btn.secondary:hover {
+  background: #f3f4f6;
+  border-color: #cfcfcf;
+}
+
+/* =========================
+   FILTROS (produtos.php)
+========================= */
 .filters {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr auto auto;
   gap: 10px;
-  margin-bottom: 20px;
+  margin: 6px 0 22px;
+  align-items: center;
 }
 
-@media (max-width: 800px) {
-  .filters {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 900px) {
+  .filters { grid-template-columns: 1fr; }
 }
 
-/* GRID + CARD */
+/* =========================
+   GRID / CARDS
+========================= */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 18px;
 }
 
 .card {
-  border: 1px solid #eee;
-  border-radius: 16px;
+  border: 1px solid #ececec;
+  border-radius: 18px;
   padding: 16px;
   background: #fff;
-  box-shadow: 0 10px 20px rgba(0,0,0,.05);
+  box-shadow: 0 10px 22px rgba(0,0,0,.05);
   transition: transform .15s ease, box-shadow .15s ease;
   display: flex;
   flex-direction: column;
@@ -71,136 +183,136 @@ body {
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 14px 30px rgba(0,0,0,.08);
+  box-shadow: 0 16px 34px rgba(0,0,0,.08);
 }
 
 .card h3 {
-  margin: 10px 0 6px;
+  margin: 12px 0 6px;
+  font-size: 1.05rem;
 }
 
-/* PREÇO */
+/* imagem no card: cover (fica “loja real”) */
+.card .product-img {
+  width: 100%;
+  height: 180px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #f1f2f4;
+  border: 1px solid #eee;
+}
+
+/* preço */
 .price {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin: 6px 0;
+  font-size: 1.12rem;
+  font-weight: 800;
+  margin: 6px 0 8px;
 }
 
-/* BOTÕES */
-.btn {
-  display: inline-block;
-  padding: 10px 14px;
-  border: 1px solid #111;
-  border-radius: 10px;
-  background: #111;
-  color: #fff;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.btn.secondary {
-  background: #fff;
-  color: #111;
-}
-
-/* UTIL */
+/* row util (botoes / alinhamentos) */
 .row {
   display: flex;
   gap: 10px;
   align-items: center;
   justify-content: space-between;
-  margin-top: auto;
 }
 
-.input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-}
+.card .row { margin-top: auto; }
 
-/* TABELAS */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.table th, .table td {
-  border-bottom: 1px solid #eee;
-  padding: 10px;
-  text-align: left;
-}
-
-/* AVISOS */
-.notice {
-  padding: 12px;
-  border: 1px solid #eee;
-  border-radius: 10px;
-  background: #fafafa;
-}
-
-/* FOOTER */
-.footer {
-  padding: 18px;
-  border-top: 1px solid #eee;
-  text-align: center;
-  background: #fff;
-}
-
-/* PÁGINA DE PRODUTO */
+/* =========================
+   PÁGINA DE PRODUTO (produto.php)
+========================= */
 .product-page {
   display: grid;
-  grid-template-columns: minmax(320px, 480px) 1fr;
+  grid-template-columns: minmax(320px, 520px) 1fr;
   gap: 48px;
   align-items: start;
 }
 
-.product-page img {
+@media (max-width: 900px) {
+  .product-page { grid-template-columns: 1fr; gap: 20px; }
+}
+
+/* frame da imagem no detalhe */
+.product-page .product-img {
   width: 100%;
   max-height: 360px;
   object-fit: contain;
+  background: #fafafa;
+  border-radius: 18px;
+  padding: 28px;
+  border: 1px solid #ececec;
+  box-shadow: 0 10px 22px rgba(0,0,0,.05);
+}
+
+.product-page p { margin: 10px 0; }
+
+/* =========================
+   TABELAS (carrinho + admin)
+========================= */
+.table {
+  width: 100%;
+  border-collapse: collapse;
   background: #fff;
   border-radius: 16px;
-  padding: 20px;
-  border: 1px solid #eee;
+  overflow: hidden;
+  border: 1px solid #ececec;
+  box-shadow: 0 10px 22px rgba(0,0,0,.04);
 }
 
-@media (max-width: 800px) {
-  .product-page {
-    grid-template-columns: 1fr;
-  }
+.table th, .table td {
+  border-bottom: 1px solid #eee;
+  padding: 12px 12px;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 0.95rem;
 }
 
-main.container {
-  padding-left: 24px;
-  padding-right: 24px;
+.table th {
+  background: #f5f6f8;
+  font-weight: 800;
+}
+
+/* =========================
+   NOTICES
+========================= */
+.notice {
+  padding: 14px;
+  border: 1px solid #ececec;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 10px 22px rgba(0,0,0,.04);
 }
 
 /* =========================
    PAGINAÇÃO
 ========================= */
-
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  margin: 32px 0 16px;
+  margin: 26px 0 10px;
+  flex-wrap: wrap;
 }
 
 .page-btn {
-  min-width: 36px;
+  min-width: 38px;
   padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
   background: #fff;
   color: #111;
   text-decoration: none;
   font-size: 0.9rem;
+  font-weight: 700;
   text-align: center;
-  transition: background .15s ease, color .15s ease, border-color .15s ease;
+  transition: background .12s ease, border-color .12s ease, transform .12s ease;
 }
 
 .page-btn:hover {
-  background: #f2f2f2;
+  background: #f2f3f5;
+  border-color: #cfcfcf;
+  transform: translateY(-1px);
 }
 
 .page-btn.active {
@@ -208,10 +320,91 @@ main.container {
   color: #fff;
   border-color: #111;
   cursor: default;
+  transform: none;
 }
 
-.page-btn:disabled {
-  opacity: .5;
-  pointer-events: none;
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  background: #fff;
+  border-top: 1px solid #e9e9e9;
+  text-align: center;
+  padding: 18px 20px;
 }
 
+/* =========================
+   ACCOUNT (CLICK TO TOGGLE)
+========================= */
+
+.account-menu {
+  position: relative;
+}
+
+/* BOTÃO DA CONTA */
+.account-btn {
+  background: none;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.account-btn:hover {
+  background: #f2f3f5;
+}
+
+/* DROPDOWN */
+.account-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  box-shadow: 0 14px 30px rgba(0,0,0,.12);
+  min-width: 200px;
+
+  display: none;            /* 🔴 fechado por defeito */
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 3000;
+}
+
+/* ABERTO QUANDO TEM .open */
+.account-menu.open .account-dropdown {
+  display: flex;
+}
+
+/* LINKS E BOTÕES */
+.account-dropdown a,
+.account-dropdown button {
+  padding: 12px 14px;
+  text-align: left;
+  background: none;
+  border: none;
+  width: 100%;
+  text-decoration: none;
+  color: #111;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* HOVER DOS ITEMS */
+.account-dropdown a:hover,
+.account-dropdown button:hover {
+  background: #f2f3f5;
+}
+
+/* SEPARADOR OPCIONAL (se quiseres usar <hr>) */
+.account-dropdown hr {
+  margin: 6px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}

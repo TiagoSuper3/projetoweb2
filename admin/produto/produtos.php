@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . "/../_guard.php";
+require __DIR__ . "/../../includes/_admin_guard.php";
 require __DIR__ . "/../../config/db.php";
 
 $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
@@ -34,7 +34,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
 <?php endforeach; ?>
 </table>
 
-<a class="btn secondary" href="dashboard.php">Voltar</a>
+<a class="btn secondary" href="../dashboard.php">Voltar</a>
 </main>
 </body>
 </html>

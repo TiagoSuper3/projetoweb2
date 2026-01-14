@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . "/_guard.php";
+require __DIR__ . "/../includes/_admin_guard.php";
 require __DIR__ . "/../config/db.php";
 
 $stmt = $pdo->query("SELECT id, customer_name, total, status, created_at FROM orders ORDER BY id DESC LIMIT 50");
@@ -15,7 +15,7 @@ $orders = $stmt->fetchAll();
   <div class="row">
     <h1>Dashboard</h1>
     <a class="btn secondary" href="produto/produtos.php">Alterar/Adicionar Produto</a>
-    <a class="btn secondary" href="logout.php">Sair</a>
+    <a class="btn secondary" href="../index.php">Sair</a>
   </div>
 
   <h3>Encomendas</h3>

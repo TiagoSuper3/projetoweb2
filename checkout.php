@@ -55,10 +55,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $error = "Carrinho inválido.";
     } else {
       // transação: cria order + items + baixa stock
+      $userId = $_SESSION['user']['id'] ?? null;
       $pdo->beginTransaction();
       try {
-        $stmt = $pdo->prepare("INSERT INTO orders (user_id, customer_name, customer_address, total, status) VALUES (NULL, ?, ?, ?, 'pendente')");
-        $stmt->execute([$name, $address, $total]);
+        $stmt = $pdo->prepare("
+          INSERT INTO orders (user_id, customer_name, customer_address, total, status)
+          VALUES (?, ?, ?, ?, 'pendente')
+        ");
+
+        $stmt->execute([
+          $userId,
+          $name,
+          $address,
+          $total
+        ]);
+
         $orderId = (int)$pdo->lastInsertId();
 
         $stmtItem = $pdo->prepare("INSERT INTO order_items (order_id, product_id, product_name, quantity, price) VALUES (?, ?, ?, ?, ?)");

@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . "/../_guard.php";
+require __DIR__ . "/../../includes/_admin_guard.php";
 require __DIR__ . "/../../config/db.php";
 
 $id = (int)$_GET['id'];
