@@ -63,6 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button class="btn" type="submit">Entrar</button>
     <a class="btn secondary" href="<?= BASE_URL ?>/produtos.php">Voltar</a>
   </form>
+
+  <br><br>
+
+  <a class="btn secondary" href="<?= BASE_URL ?>/register.php">
+    Criar conta
+  </a>
+
 </main>
 </body>
 </html>
